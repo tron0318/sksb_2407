@@ -18,9 +18,20 @@ public class ApiSecurityConfig {
     SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
         http
                 .securityMatcher("/api/**")
+                .authorizeRequests(
+                        authorizeRequests -> authorizeRequests
+                                .requestMatchers("/api/*/members/login","/api/*/members/logout")
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated()
+                )
+
                 .csrf(
                         csrf -> csrf
                                 .disable()
+                )
+                .cors(
+                        cors -> cors.configure(http)
                 )
                 .sessionManagement(
                         sessionManagement -> sessionManagement
