@@ -41,4 +41,5 @@ public class Member {
     public List<String> getAuthoritiesAsStringList() {
         return  List.of("ROLE_MEMBER");
     }
+
 }
