@@ -80,7 +80,7 @@ public class MemberService {
     public SecurityUser getUserFromAccessToken(String accessToken) {
         Map<String, Object> payloadBody = authTokenService.getDataFrom(accessToken);
 
-        long id = (int) payloadBody.get("id");
+        long id = (Integer) payloadBody.get("id");
         String username = (String) payloadBody.get("username");
         List<String> authorities = (List<String>) payloadBody.get("authorities");
 
@@ -93,13 +93,13 @@ public class MemberService {
         );
     }
 
-    public RsData<String> refreshAccessToken(String refreshToken){
+    public RsData<String> refreshAccessToken(String refreshToken) {
         Member member = memberRepository.findByRefreshToken(refreshToken).orElseThrow(
-                ()-> new GlobalException("400-1","존재하지않는 리프레시 토큰입니다.")
+                () -> new GlobalException("400-1", "존재하지 않는 리프레시 토큰입니다.")
         );
 
         String accessToken = authTokenService.genAccessToken(member);
 
-        return RsData.of("200-1","토큰 갱신 성공",accessToken);
+        return RsData.of("200-1", "토큰 갱신 성공", accessToken);
     }
 }

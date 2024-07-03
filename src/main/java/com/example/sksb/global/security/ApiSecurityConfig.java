@@ -25,20 +25,16 @@ public class ApiSecurityConfig {
                                 .anyRequest()
                                 .authenticated()
                 )
-
                 .csrf(
                         csrf -> csrf
                                 .disable()
                 )
-                .cors(
-                        cors -> cors.configure(http)
+                .cors(cors -> cors
+                        .configure(http)
                 )
                 .sessionManagement(
                         sessionManagement -> sessionManagement
                                 .disable()
-                )
-                .cors(cors -> cors
-                        .configure(http)
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

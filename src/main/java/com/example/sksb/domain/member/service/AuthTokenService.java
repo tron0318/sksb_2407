@@ -50,17 +50,17 @@ public class AuthTokenService {
                 .getPayload();
 
         return Map.of(
-                "id", payload.get("id", Integer.class),
+                "id", Integer.parseInt(payload.get("id", String.class)),
                 "username", payload.get("username", String.class),
                 "authorities", payload.get("authorities", List.class)
         );
     }
 
     public boolean validateToken(String token) {
-        try{
+        try {
             Jwts.parser().setSigningKey(AppConfig.getJwtSecretKey()).build().parseClaimsJws(token);
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
